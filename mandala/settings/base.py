@@ -321,4 +321,4 @@ COMMENTS_XTD_APP_MODEL_OPTIONS = {
 # wagtail-django-recaptcha
 RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
-ACCOUNT_FORMS = {'signup': 'accounts.forms.CustomSignupForm'}
+ACCOUNT_FORMS = {'signup': 'core.forms.CustomSignupForm'}

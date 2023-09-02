@@ -43,7 +43,7 @@
 
 
     <div class="container text-center mt-3">
-        <a class="btn btn-outline-primary secondaryAction" role="button" href="{% url 'accounts:account_profile' %}">{% trans "Back to Profile" %}</a>
+        <a class="btn btn-outline-primary secondaryAction" role="button" href="{% url 'core:account_profile' %}">{% trans "Back to Profile" %}</a>
     </div>
 
 
@@ -57,7 +57,7 @@
                         {{ language_skill.language }} - {{ language_skill.get_proficiency_level_display }}
                     </div>
                     <div class="col-md-4">
-                        <form method="post" action="{% url 'accounts:delete-language-skill' language_skill.id %}">
+                        <form method="post" action="{% url 'core:delete-language-skill' language_skill.id %}">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                         </form>
