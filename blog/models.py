@@ -1,7 +1,7 @@
 from django.db import models
 from wagtail.models import Page, TranslatableMixin
 from wagtail.fields import RichTextField
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.search import index
 from wagtail.models.i18n import Locale
 from wagtail.fields import StreamField
@@ -13,6 +13,7 @@ import datetime
 from django.conf import settings
 from core.models import CustomUser
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django_comments_xtd.models import XtdComment
 
 
 
@@ -98,6 +99,9 @@ class PostPage(Page):
         index.SearchField("body"),
     ]
 
+    def get_absolute_url(self):
+        return self.get_url()
+
     content_panels = Page.content_panels + [
          FieldPanel("subtitle"),
          FieldPanel("intro"),
@@ -108,6 +112,16 @@ class PostPage(Page):
 
     def save(self, *args, **kwargs):
         # If the author is not set, set it to the currently logged-in user
-        if not self.author_id and hasattr(self, 'request') and self.request.user.is_authenticated:
-            self.author = self.request.user
+        if not self.author_id and self.owner:
+            self.author = self.owner
         super().save(*args, **kwargs)
+
+
+class CustomComment(XtdComment):
+    page = ParentalKey(PostPage, on_delete=models.CASCADE, related_name='customcomments')
+
+    def save(self, *args, **kwargs):
+        if self.user:
+            self.user_name = self.user.username
+        self.page = PostPage.objects.get(pk=self.object_pk)
+        super(CustomComment, self).save(*args, **kwargs)

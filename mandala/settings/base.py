@@ -33,14 +33,14 @@ INSTALLED_APPS = [
     # Third party apps
     "widget_tweaks",
     "django_htmx",
+    "django_comments_xtd",
+    "django_comments",
 
     # django-allauth apps
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
-
-
 
     # Wagtail localize (wagtail_localize.locales will be removed soon, check this)
     "wagtail_localize",
@@ -100,6 +100,7 @@ TEMPLATES = [
             os.path.join(PROJECT_DIR, "templates"),
             os.path.join(BASE_DIR, "home/templates/home"),
             os.path.join(BASE_DIR, "core/templates/core"),
+            os.path.join(BASE_DIR, "blog/templates/blog"),
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -156,7 +157,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en"
 
 TIME_ZONE = "UTC"
 
@@ -245,8 +246,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
-# ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-ACCOUNT_EMAIL_VERIFICATION = "optional"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
 # Email settings
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -291,3 +291,27 @@ WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
 ]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Internationalization
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
+
+# django-comments-xtd
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_SALT = (b"Timendi causa est nescire. "
+                     b"Aequam memento rebus in arduis servare mentem.")
+COMMENTS_XTD_FROM_EMAIL = "polyglotmandala@gmail.com"
+COMMENTS_XTD_CONTACT_EMAIL = "polyglotmandala@gmail.com"
+
+COMMENTS_XTD_MODEL = 'blog.models.CustomComment'
+
+COMMENTS_XTD_MAX_THREAD_LEVEL = 3  # default is 0
+COMMENTS_XTD_LIST_ORDER = ('-thread_id', 'order')  # default is ('thread_id', 'order')
+COMMENTS_XTD_APP_MODEL_OPTIONS = {
+    'blog.postpage': {
+        'allow_flagging': False,
+        'allow_feedback': False,
+        'show_feedback': False,
+    }
+}

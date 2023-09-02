@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags i18n %}
 
 {% for post in blog_posts %}
     {% image post.specific.featured_image fill-750x250 as blog_img %}
@@ -16,9 +16,10 @@
             </a>
             <div class="card-body">
                 <h3 class="card-title">
-                <a href="{% pageurl post %}">{{ post.title }}</a>
+                <a class="text-decoration-none" href="{% pageurl post %}">{{ post.title }}</a>
                 </h3>
-                <p>{{ post.specific.intro }}</p>
+                <p class="fs-5">{{ post.specific.subtitle }}</p>
+                <p>{% trans "Written by" %} {{ post.specific.author }} {% trans "on" %} {{ post.specific.date_published }}</p> 
             </div>
         </div>
 {% endfor %}

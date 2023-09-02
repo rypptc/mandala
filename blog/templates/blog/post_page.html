@@ -35,9 +35,22 @@
         <div class="body mt-4">
           {{ page.body }}
         </div>
-            <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+        <div class="container-fluid mt-4 comment-form">
+            {% render_comment_form for page %}
         </div>
+
+        {% get_comment_count for page as comment_count %}
+        {% if comment_count %}
+            <hr>
+            <div class="container-fluid mt-4 media-list">
+                {% render_xtdcomment_tree for page %}
+            </div>
+        {% endif %}
+
+        <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+
       </div>
+    </div>
 
     <div class="col-lg-2"></div>
   </div>
