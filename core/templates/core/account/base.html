@@ -1,4 +1,4 @@
-{% load static i18n wagtailcore_tags wagtailuserbar %}
+{% load static i18n wagtailcore_tags wagtailuserbar menu_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +39,9 @@
         {% wagtailuserbar %}
 
         {% block header %}
-            {% include "core/navbar.html" %}
+            {% include "core/account/messages.html" %}
+            {% comment %} {% include "accounts/navbar.html" %} {% endcomment %}
+            {% main_menu template="core/navbar.html" %}
         {% endblock header %}
 
         {% block content %}{% endblock %}

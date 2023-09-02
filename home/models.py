@@ -18,6 +18,10 @@ class HomePage(Page):
     parent_page_type = [
         'wagtailcore.Page'
     ]
+
+    subpage_types = [
+        'blog.BlogIndexPage',
+    ]
     
     first_section_image = models.ForeignKey(
         "wagtailimages.Image",

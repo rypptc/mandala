@@ -25,7 +25,8 @@ SECRET_KEY = config('SECRET_KEY')
 ALLOWED_HOSTS = [
     "polyglotmandala.com",
     "www.polyglotmandala.com",
-    config('SERVER_IP'),
+    config("SERVER_IP"),
+    "localhost",
 ]
 
 # AWS settings

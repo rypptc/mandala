@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n menu_tags wagtailcore_tags %}
 
 <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
   <div class="container-fluid">
@@ -10,26 +10,38 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Home
-            <span class="visually-hidden">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-
+        {% for item in menu_items %}
+          <li class="nav-item ms-2">
+            <a 
+              href="{{ item.link_page.localized.url }}"
+              class="nav-link {% if request.path == item.href %}active{% endif %}">
+              {{ item.link_page.localized.title }}
+            </a>
+          </li>
+        {% endfor %}
       </ul>
-      <form class="d-flex">
+      <form class="d-flex me-2">
         <input class="form-control me-sm-2" type="search" placeholder="Search">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       </form>
+      {% if page %}
+      <div class="btn-group">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-globe"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+              {% for translation in page.get_translations.live %}
+                  <a class="dropdown-item" 
+                      href="{% pageurl translation %}" 
+                      rel="alternate" 
+                      hreflang="{{ translation.locale.language_code }}">
+                      {{ translation.locale.language_name_local|title }}
+                  </a>
+              {% endfor %}
+            {% else %}
+        </ul>
+      </div>
+      {% endif %}
     </div>
   </div>
 </nav>

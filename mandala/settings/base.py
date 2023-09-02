@@ -35,6 +35,8 @@ INSTALLED_APPS = [
 
     "home",
     "search",
+    "blog",
+
 
     # Third party apps
     "widget_tweaks",
@@ -47,6 +49,10 @@ INSTALLED_APPS = [
     "wagtail.contrib.redirects",
 
     "wagtail.contrib.settings",
+
+    # wagtailmenus
+    "wagtail.contrib.modeladmin",
+    "wagtailmenus",
 
     "wagtail.embeds",
     "wagtail.sites",
@@ -101,6 +107,8 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "wagtail.contrib.settings.context_processors.settings",
+                "wagtailmenus.context_processors.wagtailmenus",
+                "django.template.context_processors.i18n",
             ],
         },
     },
