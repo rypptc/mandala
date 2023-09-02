@@ -3,7 +3,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">
-      <img src="{% static "core/img/logo.png" %}" alt="Logo" style="height: 30px;">
+      <img src="{% static "core/img/logo.png" %}" alt="Logo" style="height: 50px;">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -23,8 +23,8 @@
       <!-- Search box -->
       <form class="d-flex me-2" id="navbar-search-box" role="search" method="get" action="">
           <div class="input-group">
-              <input type="search" name="search_query" class="form-control" placeholder="Search" aria-label="Search" autocomplete="off">
-              <button class="btn btn-outline-primary" type="submit">Search</button>
+              <input type="search" name="search_query" class="form-control" placeholder="{% trans "Search" %}" aria-label="Search" autocomplete="off">
+              <button class="btn btn-outline-primary" type="submit">{% trans "Search" %}</button>
           </div>
       </form>
 

@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     "django_htmx",
     "django_comments_xtd",
     "django_comments",
+    "captcha",
+    "wagtailcaptcha",
 
     # django-allauth apps
     "allauth",
@@ -199,7 +201,7 @@ MEDIA_URL = "/media/"
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "mandala"
+WAGTAIL_SITE_NAME = "Polyglot Mandala"
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html
@@ -315,3 +317,8 @@ COMMENTS_XTD_APP_MODEL_OPTIONS = {
         'show_feedback': False,
     }
 }
+
+# wagtail-django-recaptcha
+RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
+ACCOUNT_FORMS = {'signup': 'accounts.forms.CustomSignupForm'}
