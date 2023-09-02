@@ -1,0 +1,72 @@
+{% extends "core/account/base.html" %}
+{% load static i18n widget_tweaks  %}
+
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'core/css/accounts.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<main class="form-profile w-100 m-auto">
+    <h2 class="mb-12 fw-normal text-center">
+        Update Language Skills
+    </h2>
+
+    <form class="card p-2" method="post">
+        {% csrf_token %}
+        <div class="form-group row">
+            <div class="col-md-9">
+                <div class="form-group row my-2">
+                    <label class="col-md-3 col-form-label">Language:</label>
+                    <div class="col-md-9">
+                        <div class="fieldWrapper">
+                            {{ form.language.errors }}
+                            {% render_field form.language class="form-control" %}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row my-2">
+                    <label class="col-md-3 col-form-label">Proficiency Level:</label>
+                    <div class="col-md-9">
+                        <div class="fieldWrapper">
+                            {{ form.proficiency_level.errors }}
+                            {% render_field form.proficiency_level class="form-select" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex justify-content-center align-items-center">
+                <button type="submit" class="btn btn-primary">Add Skill</button>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="container text-center mt-3">
+        <a class="btn btn-outline-primary secondaryAction" role="button" href="{% url 'accounts:account_profile' %}">{% trans "Back to Profile" %}</a>
+    </div>
+
+
+    <div class="container existing-languages">
+        <h3 class="mt-5 fw-normal text-center">Existing Language Skills</h3>
+        <ul class="list-group">
+            {% for language_skill in language_skills %}
+            <li class="list-group-item">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class="col-md-8">
+                        {{ language_skill.language }} - {{ language_skill.get_proficiency_level_display }}
+                    </div>
+                    <div class="col-md-4">
+                        <form method="post" action="{% url 'accounts:delete-language-skill' language_skill.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</main>
+
+{% endblock %}

@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-
 from decouple import config
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -36,8 +35,19 @@ INSTALLED_APPS = [
 
     "home",
     "search",
+
+    # Third party apps
+    "widget_tweaks",
+
+    # Wagtail localize (wagtail_localize.locales will be removed soon, check this)
+    "wagtail_localize",
+    "wagtail_localize.locales",
+
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
+
+    "wagtail.contrib.settings",
+
     "wagtail.embeds",
     "wagtail.sites",
     "wagtail.users",
@@ -69,6 +79,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
@@ -79,6 +90,8 @@ TEMPLATES = [
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
             os.path.join(PROJECT_DIR, "templates"),
+            os.path.join(BASE_DIR, "home/templates/home"),
+            os.path.join(BASE_DIR, "core/templates/core"),
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -87,6 +100,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "wagtail.contrib.settings.context_processors.settings",
             ],
         },
     },
@@ -140,6 +154,8 @@ USE_I18N = True
 
 USE_L10N = True
 
+WAGTAIL_I18N_ENABLED = True
+
 USE_TZ = True
 
 
@@ -153,6 +169,8 @@ STATICFILES_FINDERS = [
 
 STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, "static"),
+    os.path.join(BASE_DIR, "core/static/core"),
+    os.path.join(BASE_DIR, "home/static/home"),
 ]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
@@ -181,8 +199,9 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = "http://example.com"
+WAGTAILADMIN_BASE_URL = "https://www.polyglotmandala.com"
 
+# Authentication settings
 AUTH_USER_MODEL = "core.CustomUser"
 
 # django-allauth settings
@@ -226,3 +245,38 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = config('EMAIL_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_PASS')
 EMAIL_PORT = 587
+
+# Wagtail localize content languages
+WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
+    ("bg", "Bulgarian"),
+    ("zh", "Chinese"),
+    ("cs", "Czech"),
+    ("da", "Danish"),
+    ("nl", "Dutch"),
+    ("en", "English"),
+    ("et", "Estonian"),
+    ("fi", "Finnish"),
+    ("fr", "French"),
+    ("de", "German"),
+    ("el", "Greek"),
+    ("hu", "Hungarian"),
+    ("id", "Indonesian"),
+    ("it", "Italian"),
+    ("ja", "Japanese"),
+    ("ko", "Korean"),
+    ("lv", "Latvian"),
+    ("lt", "Lithuanian"),
+    ("no", "Norwegian"),
+    ("pl", "Polish"),
+    ("pt", "Portuguese"),
+    ("ro", "Romanian"),
+    ("ru", "Russian"),
+    ("sk", "Slovak"),
+    ("sl", "Slovenian"),
+    ("es", "Spanish"),
+    ("sv", "Swedish"),
+    ("tr", "Turkish"),
+    ("uk", "Ukrainian"),
+]
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

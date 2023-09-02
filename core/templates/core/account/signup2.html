@@ -1,0 +1,66 @@
+{% extends "core/account/base.html" %}
+{% load static %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Signup" %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'core/css/accounts.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<main class="form-accounts w-100 m-auto">
+    <h1 class="h3 mb-3 fw-normal text-center">{% trans "Sign Up" %}</h1>
+
+    <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+
+    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="{{ form.email.id_for_label }}">Email</label>
+        {{ form.email }}
+        {% if form.email.errors %}
+          <div class="invalid-feedback">
+            {% for error in form.email.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.password1.id_for_label }}">Password</label>
+        {{ form.password1 }}
+        {% if form.password1.errors %}
+          <div class="invalid-feedback">
+            {% for error in form.password1.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      {% for field in form %}
+        {% if field.name == 'captcha' %}
+          <div class="form-group">
+            <label for="{{ field.id_for_label }}">reCaptcha</label>
+            {{ field }}
+            {% if field.errors %}
+              <div class="invalid-feedback">
+                {% for error in field.errors %}
+                  {{ error }}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      <button type="submit">{% trans "Sign Up" %} &raquo;</button>
+    </form>
+</main>
+{% endblock content %}

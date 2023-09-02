@@ -1,0 +1,17 @@
+{% extends "core/account/base.html" %}
+{% load static %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Sign Up Closed" %}{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'core/css/accounts.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<main class="form-accounts w-100 m-auto">
+  <h1 class="h3 mb-3 fw-normal text-center">{% trans "Sign Up Closed" %}</h1>
+
+  <p>{% trans "We are sorry, but the sign up is currently closed." %}</p>
+</main>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "core/account/base.html" %}
+{% load static %}
+{% load i18n %}
+{% load avatar_tags %}
+{% load widget_tweaks %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'core/css/accounts.css' %}">
+{% endblock extra_css %}
+{% block content %}
+  <main class="form-profile w-100 m-auto">
+    <h1 class="h3 mb-3 fw-normal text-center">
+      Update Profile
+    </h1>
+    <a href="{% url 'avatar_change' %}" 
+        class="btn btn-link p-0 text-decoration-none mb-3" 
+        role="button">
+        {% avatar user 65 class="rounded-circle" id="user_avatar" %}
+      </a>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label" for="{{ form.email.id_for_label }}">Email:</label>
+        <div class="col-sm-9">
+          <div class="fieldWrapper">
+            {{ form.email.errors }}
+            {% render_field form.email class="form-control" type="email" placeholder="E-mail address" %}
+          </div>
+        </div>
+      </div>
+      <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label"
+               for="{{ form.username.id_for_label }}">Username:</label>
+        <div class="col-sm-9">
+          <div class="fieldWrapper">
+            {{ form.username.errors }}
+            {% render_field form.username class="form-control" type="text" %}
+          </div>
+        </div>
+      </div>
+      <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label"
+               for="{{ form.first_name.id_for_label }}">First name:</label>
+        <div class="col-sm-9">
+          <div class="fieldWrapper">
+            {{ form.first_name.errors }}
+            {% render_field form.first_name class="form-control" type="text" %}
+          </div>
+        </div>
+      </div>
+      <div class="form-group row mb-3">
+        <label class="col-sm-3 col-form-label"
+               for="{{ form.last_name.id_for_label }}">Last name:</label>
+        <div class="col-sm-9">
+          <div class="fieldWrapper">
+            {{ form.last_name.errors }}
+            {% render_field form.last_name class="form-control" type="text" %}
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-primary d-block w-100" type="submit">{% trans "Update" %}</button>
+      </div>
+    </form>
+
+    <a href="{% url 'account_change_password' %}">Change your password</a>
+  </main>
+{% endblock content %}
+{% comment %} 
+  Allauth 'change-email' option disabled
+  <li><a href="{% url 'account_email' %}">{% trans "Change E-mail" %}</a></li> 
+{% endcomment %}

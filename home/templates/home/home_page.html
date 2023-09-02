@@ -1,21 +1,30 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "core/account/base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
 {% block extra_css %}
-
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
-<link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/home_page.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
+    <section class="first-section">
+        <div class="container p-5">
+            <div class="row">
+            <div class="col-md-6">
+                {% image page.first_section_image width-600 alt=page.first_section_image.alt %}
+            </div>
+            <div class="col-md-6">
+                {% if page.first_section_heading %}
+                    <h2 class="text-center">{{ page.first_section_heading }}</h2>
+                {% endif %}
 
-{% comment %}
-Delete the line below if you're just getting started and want to remove the welcome screen!
-{% endcomment %}
-{% include 'home/welcome_page.html' %}
-
+                {% if page.first_section_text %}
+                    <div class="text-center">{{ page.first_section_text | richtext }}</div>
+                {% endif %}
+                <a href="#" class="btn btn-primary">{{ page.first_section_cta_text }}</a>
+            </div>
+            </div>
+        </div>
+    </section>
 {% endblock content %}

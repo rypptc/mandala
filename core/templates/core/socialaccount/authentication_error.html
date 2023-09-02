@@ -1,0 +1,17 @@
+{% extends "socialaccount/base.html" %}
+{% load static %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Social Network Login Failure" %}{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'core/css/accounts.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<main class="form-accounts w-100 m-auto">
+<h1 class="h3 mb-3 fw-normal text-center">{% trans "Social Network Login Failure" %}</h1>
+
+<p>{% trans "An error occurred while attempting to login via your social network account." %}</p>
+</main>
+{% endblock %}

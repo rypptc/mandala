@@ -1,0 +1,47 @@
+{% extends "core/account/base.html" %}
+{% load static %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% block title %}{% trans "Signup" %}{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'core/css/accounts.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<main class="form-accounts w-100 m-auto">
+<h1 class="h3 mb-3 fw-normal text-center">{% trans "Sign Up" %}</h1>
+
+<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+
+<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+  <div class="mb-3">
+    <div class="fieldWrapper">
+      {{ form.email.errors }}
+      {% render_field form.email name="email" class="form-control" type="email" placeholder="E-mail address" %}
+    </div>
+  </div>
+  <div class="mb-3">
+    <div class="fieldWrapper">
+      {{ form.password1.errors }}
+      {% render_field form.password1 name="password1" class="form-control" type="password" placeholder="Password" %}
+    </div>
+  </div>
+  <div class="mb-3">
+    <div class="fieldWrapper">
+      {{ form.captcha.errors }}
+      {% render_field form.captcha %}
+    </div> 
+  </div>
+
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+
+  <div class="mb-3">
+    <button class="btn btn-primary d-block w-100" type="submit">{% trans "Sign Up" %}</button>
+  </div>
+</form>
+</main>
+{% endblock %}

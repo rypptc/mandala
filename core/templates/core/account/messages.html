@@ -1,0 +1,20 @@
+<style>
+    @keyframes hide-message {
+        from { max-height: 100px; opacity: 1; }
+        to { max-height: 0; opacity: 0; padding: 0; margin: 0; }
+    }
+    .message-alert {
+        animation: hide-message 1s ease-out 2.5s forwards;
+    }
+</style>
+
+{% if messages %}
+    <div class="alert alert-info text-center message-alert" role="alert" id="messages">
+        <ul class="list-unstyled">
+            {% for message in messages %}
+                <li> {{ message }} </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endif %}

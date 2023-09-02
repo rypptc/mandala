@@ -1,0 +1,18 @@
+{% extends "core/account/base.html" %}
+{% load static %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Account Inactive" %}{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'core/css/accounts.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<main class="form-accounts w-100 m-auto">
+
+  <h1 class="h3 mb-3 fw-normal text-center">{% trans "Account Inactive" %}</h1>
+
+  <p>{% trans "This account is inactive." %}</p>
+</main>
+{% endblock %}

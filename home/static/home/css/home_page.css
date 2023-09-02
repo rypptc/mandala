@@ -1,0 +1,18 @@
+/* Adjust the image size if needed */
+.first-section img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Center align the content in the right column */
+  .first-section .col-md-6 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  /* Add some spacing between the two columns */
+  .first-section .col-md-6:not(:first-child) {
+    margin-top: 20px;
+  }
+  
