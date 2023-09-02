@@ -1,0 +1,32 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% for post in blog_posts %}
+    {% image post.specific.featured_image fill-750x250 as blog_img %}
+    {% if forloop.last and blog_posts.has_next %}
+        <div class="card mt-2" 
+                hx-trigger="revealed" 
+                hx-get="{% pageurl page %}?page={{ blog_posts.next_page_number }}"
+                hx-swap="afterend"
+                hx-target="this">
+    {% else %}
+        <div class="card mt-2">
+    {% endif %}
+            <a href="{{ post.url }}">
+                <img src="{{ blog_img.url }}" class="card-img-top" alt="{{ blog_img.alt }}">
+            </a>
+            <div class="card-body">
+                <h3 class="card-title">
+                <a href="{% pageurl post %}">{{ post.title }}</a>
+                </h3>
+                <p>{{ post.specific.intro }}</p>
+            </div>
+        </div>
+{% endfor %}
+
+
+
+{% comment %} {% if forloop.last and blog_posts.has_next %}
+    hx-trigger="revealed"
+    hx-get="{% pageurl page %}?page={{ blog_posts.next_page_number }}"
+{% endif %}>
+    {% endcomment %}

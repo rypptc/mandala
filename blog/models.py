@@ -12,6 +12,8 @@ from modelcluster.fields import ParentalKey
 import datetime
 from django.conf import settings
 from core.models import CustomUser
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 class BlogIndexPage(Page):
@@ -26,13 +28,30 @@ class BlogIndexPage(Page):
             FieldPanel("intro")
         ]
 
+        def get_template(self, request, *args, **kwargs):
+            if request.htmx:
+                return "blog/components/blog_post_items.html"
+            return "blog/blog_index_page.html"
+
+
         def get_context(self, request):
             # Update context to include only published posts, ordered by reverse-chron
             context = super().get_context(request)
-            blogpages = self.get_children().live().filter(alias_of_id__isnull=True).order_by('-first_published_at')
-            
-            print(type(blogpages))
-            context['blogpages'] = blogpages
+            blog_posts = self.get_children().live().filter(alias_of_id__isnull=True).order_by('-first_published_at')
+            paginator = Paginator(blog_posts, 3) #@todo: update paginator
+            page = request.GET.get("page")
+            try:
+                 blog_posts = paginator.page(page)
+
+            except PageNotAnInteger:
+                 blog_posts = paginator.page(1)
+
+            except EmptyPage:
+                 print("No results for page:", page)
+                 blog_posts = paginator.page(paginator.num_pages)
+                 
+            context['blog_posts'] = blog_posts
+
             return context
 
 

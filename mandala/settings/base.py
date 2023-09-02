@@ -25,7 +25,14 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    "home",
+    "search",
     "core.apps.CoreConfig",
+    "blog",
+
+    # Third party apps
+    "widget_tweaks",
+    "django_htmx",
 
     # django-allauth apps
     "allauth",
@@ -33,13 +40,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
 
-    "home",
-    "search",
-    "blog",
 
-
-    # Third party apps
-    "widget_tweaks",
 
     # Wagtail localize (wagtail_localize.locales will be removed soon, check this)
     "wagtail_localize",
@@ -87,6 +88,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = "mandala.urls"

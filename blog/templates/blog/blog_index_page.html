@@ -1,6 +1,6 @@
-{% extends "accounts/account/base.html" %}
+{% extends "core/account/base.html" %}
 
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-blogindexpage{% endblock %}
 
@@ -10,20 +10,9 @@
     <div class="col-lg-2"></div>
     <div class="col-lg-8">
       <div class="container mt-3">
-        {% for post in blogpages %}
-          {% image post.specific.featured_image fill-750x250 as blog_img %}
-          <div class="card mt-2" >
-            <a href="{{ post.url }}">
-              <img src="{{ blog_img.url }}" class="card-img-top" alt="{{ blog_img.alt }}">
-            </a>
-            <div class="card-body">
-              <h3 class="card-title">
-                <a href="{% pageurl post %}">{{ post.title }}</a>
-              </h3>
-              <p>{{ post.specific.intro }}</p>
-            </div>
-          </div>
-        {% endfor %}
+        <div id="blog-post-list">
+          {% include "./components/blog_post_items.html" %}
+        </div>
       </div>
     </div>
     <div class="col-lg-2"></div>

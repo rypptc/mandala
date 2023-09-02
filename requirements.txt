@@ -13,6 +13,7 @@ django-allauth==0.54.0
 django-cogwheels==0.3
 django-extensions==3.2.3
 django-filter==22.1
+django-htmx==1.16.0
 django-modelcluster==6.0
 django-permissionedforms==0.1
 django-storages==1.13.2
