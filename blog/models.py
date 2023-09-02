@@ -15,6 +15,7 @@ from core.models import CustomUser
 
 
 class BlogIndexPage(Page):
+        max_count = 1
         subpage_types = [
             "blog.PostPage",
         ]

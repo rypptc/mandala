@@ -92,6 +92,15 @@ LOGGING = {
     },
 }
 
+# Deployment Django check list
+SECURE_HSTS_SECONDS = 31536000  # One year in seconds
+# SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+
 try:
     from .local import *
 except ImportError:

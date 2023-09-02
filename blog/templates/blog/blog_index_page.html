@@ -9,10 +9,22 @@
   <div class="row">
     <div class="col-lg-2"></div>
     <div class="col-lg-8">
+      <div class="container mt-3">
         {% for post in blogpages %}
-            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-            {{ post.specific.intro }}
+          {% image post.specific.featured_image fill-750x250 as blog_img %}
+          <div class="card mt-2" >
+            <a href="{{ post.url }}">
+              <img src="{{ blog_img.url }}" class="card-img-top" alt="{{ blog_img.alt }}">
+            </a>
+            <div class="card-body">
+              <h3 class="card-title">
+                <a href="{% pageurl post %}">{{ post.title }}</a>
+              </h3>
+              <p>{{ post.specific.intro }}</p>
+            </div>
+          </div>
         {% endfor %}
+      </div>
     </div>
     <div class="col-lg-2"></div>
   </div>

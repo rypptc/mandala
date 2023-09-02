@@ -179,6 +179,7 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, "static"),
     os.path.join(BASE_DIR, "core/static/core"),
     os.path.join(BASE_DIR, "home/static/home"),
+    os.path.join(BASE_DIR, "blog/static/blog"),
 ]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
