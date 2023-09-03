@@ -1,11 +1,18 @@
-{% extends "base.html" %}
+{% extends "account/base.html" %}
+{% load static %}
 
 {% block title %}Page not found{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+{% endblock extra_css %}
 
 {% block body_class %}template-404{% endblock %}
 
 {% block content %}
-<h1>Page not found</h1>
+<main class="form-accounts w-100 m-auto">
+<h1 class="mb-3 text-center">Page not found</h1>
 
-<h2>Sorry, this page could not be found.</h2>
+<h2 class="mb-3 text-center">Sorry, this page could not be found.</h2>
+</main>
 {% endblock %}

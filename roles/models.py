@@ -44,7 +44,7 @@ class CollaboratorRequestPage(WagtailCaptchaEmailForm):
                 FieldPanel('to_address', classname="col6"),
             ]),
             FieldPanel("subject"),
-        ], heading="Email Settings"),
+        ], heading="Collaborator Request"),
     ]
 
 
@@ -58,7 +58,7 @@ class CollaboratorRequestPage(WagtailCaptchaEmailForm):
             user.languageskill_set.count() >= 2
         ):
             messages.error(request, "Your profile is incomplete. Please fill in your first name, last name, email, and include at least two language skills.")
-            return redirect(reverse('accounts:account_profile'))
+            return redirect(reverse('core:account_profile'))
 
         return super().serve(request, *args, **kwargs)
 

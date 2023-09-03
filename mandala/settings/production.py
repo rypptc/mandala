@@ -81,7 +81,7 @@ LOGGING = {
             },
         'core': {
             'handlers': ['file'],
-            'level': config('ACCOUNTS_LOG_LEVEL', default='ERROR'),
+            'level': config('CORE_LOG_LEVEL', default='ERROR'),
             'propagate': True,
         },
         'home': {

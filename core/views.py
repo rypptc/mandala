@@ -27,15 +27,18 @@ def profile_view(request):
     if request.method == 'POST':
         form = CustomUserUpdateForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
-            form.save()
+            form_instance = form.save(commit=False)
 
-            # Update the avatar in the UserProfile if it exists
-            if user_profile:
+            # Update the avatar in the UserProfile if it exists and a new avatar is provided
+            if user_profile and form.cleaned_data['avatar']:
                 user_profile.avatar = form.cleaned_data['avatar']
                 user_profile.save()
 
+            # Commit the changes to the CustomUser instance
+            form_instance.save()
+
             messages.success(request, 'Your profile has been updated.')
-            return redirect('accounts:account_profile')
+            return redirect('core:account_profile')
     else:
         form = CustomUserUpdateForm(instance=request.user)
 
@@ -75,7 +78,7 @@ def add_language_skill(request):
             language_skill = form.save(commit=False)
             language_skill.user = request.user
             language_skill.save()
-            return redirect('accounts:update-language-skills')
+            return redirect('core:update-language-skills')
         
         form = LanguageSkillForm()
     return render(request, 'add_language_skill.html', {'form': form})
@@ -87,4 +90,4 @@ def delete_language_skill(request, language_skill_id):
     if language_skill.user == request.user:
         language_skill.delete()
     
-    return redirect('accounts:update-language-skills', user_id=request.user.id)
+    return redirect('core:update-language-skills', user_id=request.user.id)

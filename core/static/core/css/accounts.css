@@ -51,5 +51,4 @@ main {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    mask: radial-gradient(circle, transparent 50%, white 50%);
 }
