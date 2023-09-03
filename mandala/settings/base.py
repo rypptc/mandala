@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "core.apps.CoreConfig",
     "blog",
     "portfolio",
+    "roles",
 
     # Third party apps
     "widget_tweaks",
@@ -107,6 +108,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, "core/templates/core"),
             os.path.join(BASE_DIR, "blog/templates/blog"),
             os.path.join(BASE_DIR, 'portfolio/templates/portfolio'),
+            os.path.join(BASE_DIR, 'roles/templates/roles'),
         ],
         "APP_DIRS": True,
         "OPTIONS": {

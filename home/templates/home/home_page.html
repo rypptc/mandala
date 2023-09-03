@@ -1,5 +1,5 @@
 {% extends "account/base.html" %}
-{% load static wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags custom_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
@@ -19,9 +19,23 @@
                 {% if page.first_section_text %}
                     <div class="text-center">{{ page.first_section_text | richtext }}</div>
                 {% endif %}
-                {% if page.first_section_cta_link %}
+
+                {% if page.first_section_cta_link and page.first_section_cta_text %}
                     <a href="{% pageurl page.first_section_cta_link %}" class="btn btn-primary">{{ page.first_section_cta_text }}</a>
                 {% endif %}
+
+                {% if request.user.is_authenticated %}
+                    {% if not request.user|is_collaborator %}
+                        {% if page.first_section_cta_link_2 and page.first_section_cta_text_2 %}
+                            <a href="{% pageurl page.first_section_cta_link_2 %}" class="btn btn-secondary">{{ page.first_section_cta_text_2 }}</a>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    {% if page.first_section_cta_link_2 and page.first_section_cta_text_2 %}
+                        <a href="{% url 'account_signup' %}?next={% slugurl 'collaborator-request' %}" class="btn btn-secondary">{{ page.first_section_cta_text_2 }}</a>
+                    {% endif %}
+                {% endif %}
+
             </div>
  
         </div>
