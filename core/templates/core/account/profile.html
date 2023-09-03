@@ -6,7 +6,7 @@
 {% endblock extra_css %}
 
 {% block content %}
-  <main class="form-profile w-100 m-auto">
+<main class="form-profile w-100 m-auto">
   <form class="p-2" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.non_field_errors }}
@@ -127,8 +127,8 @@
         <div class="col-md-9">
           <div class="row">
             <label class="col-md-4 col-form-label">Collaborator status:</label>
-            <div class="col-md-8">
-              <ul class="list-group">
+            <div class="col-md-8 d-flex align-items-center">
+              <ul class="list-group w-100">
                 {% if is_collaborator %}
                   <li class="list-group-item">
                     You are a collaborator
