@@ -326,3 +326,12 @@ COMMENTS_XTD_APP_MODEL_OPTIONS = {
 RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
 ACCOUNT_FORMS = {'signup': 'core.forms.CustomSignupForm'}
+
+# Google Cloud translation API
+WAGTAILLOCALIZE_MACHINE_TRANSLATOR = {
+    "CLASS": "wagtail_localize.machine_translators.google.GoogleCloudTranslator",
+    "OPTIONS": {
+        "CREDENTIALS_PATH": config("GOOGLE_APPLICATION_CREDENTIALS"),
+        "PROJECT_ID": "loyal-surfer-396322",
+    },
+}
