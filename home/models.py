@@ -15,15 +15,14 @@ from modelcluster.models import ClusterableModel
 
 class HomePage(Page):
     """Home page model"""
-    max_count = 1
+    max_count = 2
     parent_page_type = [
         'wagtailcore.Page'
     ]
-
     subpage_types = [
         'blog.BlogIndexPage',
+        'portfolio.PortfolioIndexPage',
     ]
-    
     first_section_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,

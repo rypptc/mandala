@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'portfolio/css/portfolio.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+    <main>
+        <section class="section-one py-3">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <h1 class="fs-2 mb-3">{{ page.intro_title }}</h1>
+                    <p>{{ page.intro | richtext }}</p>
+                </div>
+                <div class="col"></div>
+            </div>
+        </section>
+        <section class="py-2">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <h1 class="fs-2 mb-3">Projects</h1>
+                    <ul class="list-group mb-3">
+                        {% for project_entry in page.get_children.specific %}
+                            <li class="list-group-item">
+                                <span><a href="{% pageurl project_entry %}">{{ project_entry.project_title }}</a></span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col"></div>
+            </div>
+        </section>
+    </main>
+{% endblock content %}

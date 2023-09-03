@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "search",
     "core.apps.CoreConfig",
     "blog",
+    "portfolio",
 
     # Third party apps
     "widget_tweaks",
@@ -105,6 +106,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, "home/templates/home"),
             os.path.join(BASE_DIR, "core/templates/core"),
             os.path.join(BASE_DIR, "blog/templates/blog"),
+            os.path.join(BASE_DIR, 'portfolio/templates/portfolio'),
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -187,6 +189,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "core/static/core"),
     os.path.join(BASE_DIR, "home/static/home"),
     os.path.join(BASE_DIR, "blog/static/blog"),
+    os.path.join(BASE_DIR, "portfolio", "static"),
 ]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated

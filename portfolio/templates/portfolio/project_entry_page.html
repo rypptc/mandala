@@ -1,0 +1,37 @@
+{% extends "portfolio/base.html" %}
+
+{% load static i18n wagtailcore_tags wagtailimages_tags widget_tweaks %}
+
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'portfolio/css/project_entry_page.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="container content-wrapper ">
+
+                    <h1 class="text-center my-4">{{ page.project_title }}</h1>
+
+                    {% if page.project_description %}
+                    <div class="intro">{{ page.project_description }}</div>
+                    {% endif %}
+
+                    <div class="body mt-4">
+                    {{ page.project_detail }}
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+
+        </div>
+
+
+    </main>
+
+{% endblock %}
