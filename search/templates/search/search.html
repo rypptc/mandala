@@ -1,38 +1,46 @@
-{% extends "base.html" %}
-{% load static wagtailcore_tags %}
+{% extends "account/base.html" %}
+{% load static wagtailcore_tags i18n %}
 
 {% block body_class %}template-searchresults{% endblock %}
 
-{% block title %}Search{% endblock %}
+{% block title %}{% trans "Search" %}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'search/css/search.css' %}">
+{% endblock extra_css %}
 
 {% block content %}
-<h1>Search</h1>
+<main class="form-search w-100 m-auto">
+    <h1 class="h3 mb-3 fw-normal text-center">{% trans "Search for a post" %}</h1>
 
-<form action="{% url 'search' %}" method="get">
-    <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
-    <input type="submit" value="Search" class="button">
-</form>
+    <form class="form-search text-center" action="{% url 'search' %}" method="get">
+        <div class="input-group">
+            <input type="text" name="query" {% if search_query %} value="{{ search_query }}"{% endif %} class="form-control" placeholder="{% trans "Search" %}" aria-label="Search" autocomplete="off">
+            <button class="btn btn-outline-primary" type="submit">{% trans "Search" %}</button>
+        </div>
+    </form>
 
-{% if search_results %}
-<ul>
-    {% for result in search_results %}
-    <li>
-        <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
-        {% if result.search_description %}
-        {{ result.search_description }}
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
+    {% if search_results %}
+    <ul class="list-unstyled mt-3">
+        {% for result in search_results %}
+        <li>
+            <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
+            {% if result.search_description %}
+            {{ result.search_description }}
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
 
-{% if search_results.has_previous %}
-<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
-{% endif %}
+    {% if search_results.has_previous %}
+    <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
+    {% endif %}
 
-{% if search_results.has_next %}
-<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
-{% endif %}
-{% elif search_query %}
-No results found
-{% endif %}
+    {% if search_results.has_next %}
+    <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
+    {% endif %}
+    {% elif search_query %}
+    No results found
+    {% endif %}
+</main>
 {% endblock %}
