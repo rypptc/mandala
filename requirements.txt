@@ -17,9 +17,11 @@ django-allauth==0.54.0
 django-cogwheels==0.3
 django-comments-xtd==2.9.10
 django-contrib-comments==2.2.0
+django-countries-plus==2.1.0
 django-extensions==3.2.3
 django-filter==22.1
 django-htmx==1.16.0
+django-languages-plus==2.0.0
 django-modelcluster==6.0
 django-permissionedforms==0.1
 django-recaptcha==3.0.0

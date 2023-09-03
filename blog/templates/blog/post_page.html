@@ -15,7 +15,7 @@
     <div class="col-lg-8">
       <div class="container content-wrapper card">
         {% image self.featured_image fill-1200x300 as feat_img %}
-        {% image self.specific.author.profile_pic fill-40x40 as post_author_pic %}
+        {% comment %} {% image self.specific.author.profile_pic fill-40x40 as post_author_pic %} {% endcomment %}
 
         <img src="{{ feat_img.url }}"\
               class="card-img-top my-3"

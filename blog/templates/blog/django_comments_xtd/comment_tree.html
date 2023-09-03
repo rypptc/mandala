@@ -3,17 +3,17 @@
 {% load comments_xtd %}
 
 {% for item in comments %}
-  {% image item.comment.user.profile_pic fill-40x40 as comment_author_pic %}
+  {% comment %} {% image item.comment.user.profile_pic fill-40x40 as comment_author_pic %} {% endcomment %}
 
   
   <div id="c{{ item.comment.id }}" class="comment d-flex">
 
-      <!-- PICTURE -->
+      {% comment %} <!-- PICTURE -->
       {% if item.comment.user.profile_pic %}
           <img class="profile-image-thumbnail" src="{{ comment_author_pic.url }}" alt="{{ comment_author_pic.alt }}">
       {% else %}
           <img src="{{ item.comment.user_email|xtd_comment_gravatar_url }}" class="me-3" height="48" width="48" />
-      {% endif %}
+      {% endif %} {% endcomment %}
 
     <div class="d-flex flex-column flex-grow-1">
       <h6 class="comment-header mb-1 d-flex justify-content-between" style="font-size: 0.8rem">

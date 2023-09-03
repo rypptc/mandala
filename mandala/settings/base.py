@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     "django_comments",
     "captcha",
     "wagtailcaptcha",
+    "languages_plus",
+    "countries_plus",
 
     # django-allauth apps
     "allauth",

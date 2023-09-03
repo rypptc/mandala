@@ -21,10 +21,10 @@
       <div class="d-flex">
         <div class="me-3">
       <!-- PICTURE -->
-        {% image comment.user.profile_pic fill-40x40 as comment_author_pic %}
+        {% comment %} {% image comment.user.profile_pic fill-40x40 as comment_author_pic %} {% endcomment %}
 
         {% if comment.user.profile_pic %}
-            <img class="profile-image-thumbnail" src="{{ comment_author_pic.url }}" alt="{{ comment_author_pic.alt }}">
+            {% comment %} <img class="profile-image-thumbnail" src="{{ comment_author_pic.url }}" alt="{{ comment_author_pic.alt }}"> {% endcomment %}
         {% else %}
             {{ comment.user_email|xtd_comment_gravatar }}
         {% endif %}          

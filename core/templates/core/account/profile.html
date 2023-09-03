@@ -1,8 +1,6 @@
 {% extends "account/base.html" %}
-{% load static %}
-{% load i18n %}
-{% load avatar_tags %}
-{% load widget_tweaks %}
+{% load static i18n widget_tweaks wagtailimages_tags %}
+
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
 {% endblock extra_css %}
@@ -11,11 +9,30 @@
     <h1 class="h3 mb-3 fw-normal text-center">
       Update Profile
     </h1>
-    <a href="{% url 'avatar_change' %}" 
-        class="btn btn-link p-0 text-decoration-none mb-3" 
-        role="button">
-        {% avatar user 65 class="rounded-circle" id="user_avatar" %}
-      </a>
+    <div class="avatar-container my-3">
+      {% if user.wagtail_userprofile.avatar %}
+        <div class="row align-items-center">
+          <div class="col-sm-6 text-center">
+          <div class="avatar-image">
+            <img src="{{ user.wagtail_userprofile.avatar.url }}" alt="User Avatar">
+          </div>
+          </div>
+          <div class="col-sm-6 text-center">
+            <a href="{% url 'accounts:update-avatar' %}" type="button" class="btn btn-outline-success">Update image</a>
+          </div>
+        </div>
+      {% else %}
+        <div class="row align-items-center">
+          <div class="col-sm-12 text-center">
+            <div class="avatar-placeholder">
+              Upload a profile image
+            </div>
+            <button class="btn btn-primary mt-3">Update your profile image</button>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.non_field_errors }}

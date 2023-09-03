@@ -29,6 +29,7 @@ urlpatterns = urlpatterns + i18n_patterns(
     path("search/", search_views.search, name="search"),
     path("accounts/", include("allauth.urls")),
     path('comments/', include('django_comments_xtd.urls')),
+    path('core/', include('core.urls')),
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
