@@ -34,7 +34,7 @@
         <ul class="dropdown-menu dropdown-menu-lg-end">
           {% if user.is_authenticated %}
             <li>
-              <a class="dropdown-item" href="{% url 'accounts:account_profile' %}">{% trans "Profile" %}</a>
+              <a class="dropdown-item" href="{% url 'core:account_profile' %}">{% trans "Profile" %}</a>
             </li>
             <li><hr class="dropdown-divider"></li>
             <li>
