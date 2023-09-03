@@ -1,3 +1,30 @@
 .content-wrapper {
     font-size: larger;
 }
+
+/* for the comment section on article pages */
+.comment-form  {
+    width: 800px;
+    max-width: 100%;
+    margin-left: 0;
+}
+.media-list {
+    width: 800px;
+    max-width: 100%;
+    margin-left: 0;
+}
+.xtdcomment {
+    border: 1px solid lightgrey;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+/* for thumbnail image in comments */
+.profile-image-thumbnail {
+    float: left;
+    width: 40px;
+    height: 40px;
+    max-width: 100%;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-radius: 50%;
+}

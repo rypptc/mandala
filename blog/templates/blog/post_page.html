@@ -16,6 +16,7 @@
       <div class="container content-wrapper card">
         {% image self.featured_image fill-1200x300 as feat_img %}
         {% image self.specific.author.profile_pic fill-40x40 as post_author_pic %}
+
         <img src="{{ feat_img.url }}"\
               class="card-img-top my-3"
               alt="{{ feat_img.alt }}" 
@@ -26,6 +27,17 @@
         {% if page.subtitle %}
           <h3 class="text-center mt-2">{{ page.subtitle }}</h3>
         {% endif %}
+        <div class="my-3">
+          {# Check if there are tags #}
+          {% if page.tags.count %}
+              <div class="d-flex flex-wrap">
+                {% for tag in page.tags.all %}
+                    {# Loop through all the existing tags #}
+                    <a class="btn btn-outline-success btn-sm mx-1" href="/blog/?tag={{ tag.slug }}">{{ tag }}</a>
+                {% endfor %}
+              </div>
+          {% endif %}
+        </div>
 
         <div class="d-flex align-items-center mb-4">
             <img class="profile-image-thumbnail me-2" src="{{ post_author_pic.url }}" alt="{{ post_author_pic.alt }}">

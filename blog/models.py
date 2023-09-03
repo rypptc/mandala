@@ -1,19 +1,18 @@
 from django.db import models
-from wagtail.models import Page, TranslatableMixin
-from wagtail.fields import RichTextField
-from wagtail.admin.panels import FieldPanel, InlinePanel
+from django.conf import settings
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from wagtail.models import Page
+from wagtail.admin.panels import FieldPanel
 from wagtail.search import index
-from wagtail.models.i18n import Locale
-from wagtail.fields import StreamField
+from wagtail.fields import RichTextField, StreamField
 from core.blocks import BaseStreamBlock
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import Tag, TaggedItemBase
 from modelcluster.fields import ParentalKey
-import datetime
-from django.conf import settings
-from core.models import CustomUser
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django_comments_xtd.models import XtdComment
+from core.models import CustomUser
+import datetime
 
 
 
@@ -38,7 +37,11 @@ class BlogIndexPage(Page):
         def get_context(self, request):
             # Update context to include only published posts, ordered by reverse-chron
             context = super().get_context(request)
-            blog_posts = self.get_children().live().filter(alias_of_id__isnull=True).order_by('-first_published_at')
+            # blog_posts = self.get_children().live().filter(alias_of_id__isnull=True).order_by('-first_published_at')
+            blog_posts = PostPage.objects.descendant_of(self).filter(alias_of_id__isnull=True).live().public().order_by('-first_published_at')
+            if request.GET.get('tag', None):
+                tags = request.GET.get('tag')
+                blog_posts = blog_posts.filter(tags__slug__in=[tags])
             paginator = Paginator(blog_posts, 3) #@todo: update paginator
             page = request.GET.get("page")
             try:
