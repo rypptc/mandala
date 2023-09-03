@@ -4,41 +4,52 @@
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
 {% endblock extra_css %}
+
 {% block content %}
   <main class="form-profile w-100 m-auto">
-    <h1 class="h3 mb-3 fw-normal text-center">
+    <h1 class="h3 mb-12 fw-normal text-center">
       Update Profile
     </h1>
-    <div class="avatar-container my-3">
+    <div class="avatar-container my-3 px-2 border rounded">
       {% if user.wagtail_userprofile.avatar %}
         <div class="row align-items-center">
-          <div class="col-sm-6 text-center">
-          <div class="avatar-image">
-            <img src="{{ user.wagtail_userprofile.avatar.url }}" alt="User Avatar">
-          </div>
-          </div>
-          <div class="col-sm-6 text-center">
-            <a href="{% url 'accounts:update-avatar' %}" type="button" class="btn btn-outline-success">Update image</a>
+          <label class="col-md-3 col-form-label">
+            Profile Image:
+          </label>
+          <div class="col-md-6 d-flex my-2 justify-content-center align-items-center">
+            <div class="avatar-image">
+              <img src="{{ user.wagtail_userprofile.avatar.url }}" alt="User Profile Image">
+            </div>
           </div>
         </div>
       {% else %}
-        <div class="row align-items-center">
-          <div class="col-sm-12 text-center">
+        <div class="row align-items-center border">
+          <div class="col-md-12 text-center">
             <div class="avatar-placeholder">
               Upload a profile image
             </div>
-            <button class="btn btn-primary mt-3">Update your profile image</button>
           </div>
         </div>
       {% endif %}
     </div>
 
-    <form method="post" enctype="multipart/form-data">
+    <form class="p-2 border rounded" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.non_field_errors }}
+
       <div class="form-group row mb-3">
-        <label class="col-sm-3 col-form-label" for="{{ form.email.id_for_label }}">Email:</label>
-        <div class="col-sm-9">
+        <label class="col-md-3 col-form-label" for="{{ form.avatar.id_for_label }}">Update Image:</label>
+        <div class="col-md-6">
+          <div class="fieldWrapper">
+            {{ form.avatar.errors }}
+            {% render_field form.avatar class="form-control" type="file" %}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-3">
+        <label class="col-md-3 col-form-label" for="{{ form.email.id_for_label }}">Email:</label>
+        <div class="col-md-6">
           <div class="fieldWrapper">
             {{ form.email.errors }}
             {% render_field form.email class="form-control" type="email" placeholder="E-mail address" %}
@@ -46,9 +57,9 @@
         </div>
       </div>
       <div class="form-group row mb-3">
-        <label class="col-sm-3 col-form-label"
+        <label class="col-md-3 col-form-label"
                for="{{ form.username.id_for_label }}">Username:</label>
-        <div class="col-sm-9">
+        <div class="col-md-6">
           <div class="fieldWrapper">
             {{ form.username.errors }}
             {% render_field form.username class="form-control" type="text" %}
@@ -56,9 +67,9 @@
         </div>
       </div>
       <div class="form-group row mb-3">
-        <label class="col-sm-3 col-form-label"
+        <label class="col-md-3 col-form-label"
                for="{{ form.first_name.id_for_label }}">First name:</label>
-        <div class="col-sm-9">
+        <div class="col-md-6">
           <div class="fieldWrapper">
             {{ form.first_name.errors }}
             {% render_field form.first_name class="form-control" type="text" %}
@@ -66,21 +77,53 @@
         </div>
       </div>
       <div class="form-group row mb-3">
-        <label class="col-sm-3 col-form-label"
+        <label class="col-md-3 col-form-label"
                for="{{ form.last_name.id_for_label }}">Last name:</label>
-        <div class="col-sm-9">
+        <div class="col-md-6">
           <div class="fieldWrapper">
             {{ form.last_name.errors }}
             {% render_field form.last_name class="form-control" type="text" %}
           </div>
         </div>
       </div>
-      <div class="mb-3">
-        <button class="btn btn-primary d-block w-100" type="submit">{% trans "Update" %}</button>
+
+      <div class="row mb-3">
+        <label class="col-md-3 col-form-label">
+          Language Skills:
+        </label>
+        <div class="col-md-6">
+          {% if language_skills %}
+            <ul class="list-group">
+              {% for language_skill in language_skills %}
+                <li class="list-group-item">
+                  {{ language_skill.language }} - {{ language_skill.get_proficiency_level_display }}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <div class="alert alert-primary" role="alert">
+              <p>You haven't added any language skills yet.</p>
+            </div>
+          {% endif %}
+        </div>
+        <div class="col-md-3">
+          <div class="text-center mt-2">
+            <a href="{% url 'accounts:update-language-skills' user.id %}" type="button" class="btn btn-outline-secondary">Update Languages</a>
+          </div>
+        </div>
       </div>
+        
+
+
+      <div class="mb-3">
+        <button class="btn btn-primary d-block w-100" type="submit">{% trans "Update your Profile" %}</button>
+      </div>
+      <div class="mb-3 text-center">
+        <a class="btn btn-outline-secondary" href="{% url 'account_change_password' %}">Change your password</a>
+      </div>
+
     </form>
 
-    <a href="{% url 'account_change_password' %}">Change your password</a>
   </main>
 {% endblock content %}
 {% comment %} 

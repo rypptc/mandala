@@ -11,6 +11,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import Tag, TaggedItemBase
 from modelcluster.fields import ParentalKey
 from django_comments_xtd.models import XtdComment
+
 from core.models import CustomUser
 import datetime
 
@@ -28,6 +29,7 @@ class BlogIndexPage(Page):
             FieldPanel("intro")
         ]
 
+        # Implemented infinite scrolling with htmx
         def get_template(self, request, *args, **kwargs):
             if request.htmx:
                 return "blog/components/blog_post_items.html"

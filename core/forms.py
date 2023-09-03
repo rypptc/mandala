@@ -3,7 +3,7 @@ from allauth.account.forms import SignupForm
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
 from django.forms import ModelForm
-from .models import CustomUser
+from .models import CustomUser, LanguageSkill
 from django.core.exceptions import ValidationError
 from wagtail.users.models import UserProfile
 
@@ -25,26 +25,17 @@ class CustomSignupForm(SignupForm):
 
 # This form is used in the django profile view
 class CustomUserUpdateForm(ModelForm):
+    avatar = forms.ImageField(label='Profile Picture', required=False, widget=forms.FileInput())
+
     class Meta:
         model = CustomUser
         fields = ['username', 'first_name', 'last_name', 'email']
 
 
-# Create a custom avatar form to update the profile image in the frontend
-class CustomAvatarForm(forms.ModelForm):
-    avatar = forms.ImageField()
-
-    def clean_avatar(self):
-        avatar = self.cleaned_data.get("avatar", False)
-        file_size = avatar.size
-        limit_kb = 2000
-        if avatar:
-            if file_size > limit_kb * 1024:
-                raise ValidationError("The maximum file size is 2 MB.")
-            return avatar
-        else:
-            raise ValidationError("Couldn't read uploaded image")
-
+class LanguageSkillForm(forms.ModelForm):
     class Meta:
-        model = UserProfile
-        fields = ["avatar"]
+        model = LanguageSkill
+        fields = (
+            'language',
+            'proficiency_level',
+        )
