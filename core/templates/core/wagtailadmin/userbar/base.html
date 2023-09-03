@@ -1,0 +1,9 @@
+{% extends "wagtailadmin/userbar/base.html" %}
+{% load static %}
+
+<!-- Userbar is the icon that appears to users with access to 
+the admin at the botttom right of the site, so far the icon
+doesn't need to change color when dark or light -->
+{% block branding_logo %}
+    <img src="{% static 'img/logo.png' %}" alt="Custom Project" width="80" />
+{% endblock %}

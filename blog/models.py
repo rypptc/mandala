@@ -68,6 +68,7 @@ class PostPageTag(TaggedItemBase):
     )
 
 class PostPage(Page):
+    subpage_types = []
     subtitle = models.CharField(blank=True, max_length=255)
     intro = models.TextField(help_text="Text to describe the page", blank=True)
     featured_image = models.ForeignKey(

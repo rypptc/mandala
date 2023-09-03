@@ -1,0 +1,18 @@
+/* Default styles for light mode */
+.light-mode-image {
+    display: block;
+}
+
+.dark-mode-image {
+    display: none;
+}
+
+/* Media query for dark mode */
+@media (prefers-color-scheme: dark) {
+    .light-mode-image {
+        display: none;
+    }
+    .dark-mode-image {
+        display: block;
+    }
+}

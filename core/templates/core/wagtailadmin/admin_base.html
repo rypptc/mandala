@@ -1,0 +1,13 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load static %}
+
+
+{% block branding_favicon %}
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" id="light-scheme-icon" />
+    <link rel="shortcut icon" href="{% static 'img/favicon-dark.ico' %}" id="dark-scheme-icon" />
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script src="{% static 'js/favicon-switcher.js' %}"></script>
+{% endblock %}

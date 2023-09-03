@@ -1,0 +1,14 @@
+{% extends "wagtailadmin/login.html" %}
+{% load static %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/wagtailadmin.css' %}">
+{% endblock extra_css %}
+
+{% block branding_logo %}
+    <div style="display: flex; justify-content: center; align-items: center; height: 100%; padding-top: 20px;">
+        <img src="{% static 'img/logo.png' %}" alt="Custom Project" width="80" class="light-mode-image" />
+        <img src="{% static 'img/logo2.png' %}" alt="Custom Project" width="80" class="dark-mode-image" />
+    </div>
+{% endblock %}

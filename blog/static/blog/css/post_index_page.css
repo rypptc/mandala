@@ -1,0 +1,10 @@
+/* for thumbnail image in comments */
+.author-image-thumbnail {
+    float: left;
+    width: 40px;
+    height: 40px;
+    max-width: 100%;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-radius: 50%;
+}

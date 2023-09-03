@@ -11,23 +11,17 @@
     {% else %}
         <div class="card mt-2">
     {% endif %}
+            {% image post.specific.author.profile_pic fill-40x40 as post_author_pic %}
             <a href="{{ post.url }}">
                 <img src="{{ blog_img.url }}" class="card-img-top" alt="{{ blog_img.alt }}">
             </a>
             <div class="card-body">
+                <img class="author-image-thumbnail" src="{{ post_author_pic.url }}" class="card-img-top" alt="{{ post_author_pic.alt }}">
+                <p>{% trans "Written by" %} {{ post.specific.author }} <br> {% trans "on" %} {{ post.specific.date_published }}</p> 
                 <h3 class="card-title">
-                <a class="text-decoration-none" href="{% pageurl post %}">{{ post.title }}</a>
+                    <a class="text-decoration-none" href="{% pageurl post %}">{{ post.title }}</a>
                 </h3>
                 <p class="fs-5">{{ post.specific.subtitle }}</p>
-                <p>{% trans "Written by" %} {{ post.specific.author }} {% trans "on" %} {{ post.specific.date_published }}</p> 
             </div>
         </div>
 {% endfor %}
-
-
-
-{% comment %} {% if forloop.last and blog_posts.has_next %}
-    hx-trigger="revealed"
-    hx-get="{% pageurl page %}?page={{ blog_posts.next_page_number }}"
-{% endif %}>
-    {% endcomment %}

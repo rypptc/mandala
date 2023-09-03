@@ -15,6 +15,7 @@ from modelcluster.models import ClusterableModel
 
 class HomePage(Page):
     """Home page model"""
+    max_count = 1
     parent_page_type = [
         'wagtailcore.Page'
     ]

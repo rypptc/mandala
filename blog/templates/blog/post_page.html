@@ -1,11 +1,11 @@
-{% extends "core/account/base.html" %}
+{% extends "account/base.html" %}
 
-{% load static wagtailcore_tags wagtailimages_tags %}
+{% load static i18n wagtailcore_tags wagtailimages_tags widget_tweaks comments comments_xtd %}
 
 {% block body_class %}template-blogpage{% endblock %}
 
 {% block extra_css %}
-  <link rel="stylesheet" type="text/css" href="{% static 'blog/css/post_page.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/post_page.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -15,6 +15,7 @@
     <div class="col-lg-8">
       <div class="container content-wrapper card">
         {% image self.featured_image fill-1200x300 as feat_img %}
+        {% image self.specific.author.profile_pic fill-40x40 as post_author_pic %}
         <img src="{{ feat_img.url }}"\
               class="card-img-top my-3"
               alt="{{ feat_img.alt }}" 
@@ -26,7 +27,10 @@
           <h3 class="text-center mt-2">{{ page.subtitle }}</h3>
         {% endif %}
 
-        <p class="meta">{{ page.date_published }}</p>
+        <div class="d-flex align-items-center mb-4">
+            <img class="profile-image-thumbnail me-2" src="{{ post_author_pic.url }}" alt="{{ post_author_pic.alt }}">
+            <p class="meta m-0">{% trans "Written by" %} {{ page.author }} {% trans "on" %}  {{ page.date_published }}</p>
+        </div>
 
         {% if page.intro %}
           <div class="intro">{{ page.intro }}</div>
@@ -35,6 +39,7 @@
         <div class="body mt-4">
           {{ page.body }}
         </div>
+
         <div class="container-fluid mt-4 comment-form">
             {% render_comment_form for page %}
         </div>
