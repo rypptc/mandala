@@ -20,10 +20,6 @@ def profile_view(request):
     except UserProfile.DoesNotExist:
         user_profile = None
 
-    # Check if the user is a member of the "collaborators" group
-    is_collaborator = user.groups.filter(name='collaborators').exists()
-
-
     if request.method == 'POST':
         form = CustomUserUpdateForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
@@ -46,7 +42,6 @@ def profile_view(request):
         'user': user,
         'language_skills': language_skills,
         'form': form,
-        'is_collaborator': is_collaborator
     }
 
     return render(request, 'account/profile.html', context)

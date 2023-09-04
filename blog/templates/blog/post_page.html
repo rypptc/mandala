@@ -40,7 +40,11 @@
 
         <div class="d-flex align-items-center mb-4">
           <div class="avatar-image">
-            <img class="profile-image-thumbnail me-2" src="{{ page.author.wagtail_userprofile.avatar.url }}" alt="{{ post_author_pic.alt }}">
+            {% if page.author.wagtail_userprofile.avatar %}
+              <img class="profile-image-thumbnail me-2" src="{{ page.author.wagtail_userprofile.avatar.url }}" alt="{{ post_author_pic.alt }}">
+            {% else %}
+              <img class="default-avatar" src="{% static 'img/logo.png' %}" alt="{{ page.author }}'s Default Avatar">
+            {% endif %}
           </div>
             <p class="meta m-0">{% trans "Written by" %} {{ page.author }} {% trans "on" %}  {{ page.date_published }}</p>
         </div>

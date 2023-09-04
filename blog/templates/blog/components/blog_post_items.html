@@ -1,4 +1,4 @@
-{% load wagtailcore_tags wagtailimages_tags i18n %}
+{% load static wagtailcore_tags wagtailimages_tags i18n %}
 
 {% for post in blog_posts %}
     {% image post.specific.featured_image fill-750x250 as blog_img %}
@@ -16,7 +16,12 @@
             </a>
             <div class="card-body">
                 <div class="avatar-image">
-                    <img class="author-image-thumbnail" src="{{ post.specific.author.wagtail_userprofile.avatar.url }}" class="card-img-top" alt="{{ post_author_pic.alt }}">
+                    {% if post.specific.author.wagtail_userprofile.avatar %}
+                        <img class="author-image-thumbnail" src="{{ post.specific.author.wagtail_userprofile.avatar.url }}" class="card-img-top" alt="{{ post_author_pic.alt }}">
+                    {% else %}
+                        <img class="default-avatar" src="{% static 'img/logo.png' %}" alt="{{ page.author }}'s Default Avatar">
+                    {% endif %}
+
                 </div>
                 <p>{% trans "Written by" %} {{ post.specific.author }} <br> {% trans "on" %} {{ post.specific.date_published }}</p> 
                 <h3 class="card-title">

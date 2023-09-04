@@ -16,49 +16,51 @@ from core.models import CustomUser
 import datetime
 
 
-
 class BlogIndexPage(Page):
-        max_count = 1
-        subpage_types = [
-            "blog.PostPage",
-        ]
+    max_count = 1
+    parent_page_type = [
+        'home.HomePage',
+    ]
+    subpage_types = [
+        "blog.PostPage",
+    ]
 
-        intro = RichTextField(blank=True)
+    intro = RichTextField(blank=True)
 
-        content_panels = Page.content_panels + [
-            FieldPanel("intro")
-        ]
+    content_panels = Page.content_panels + [
+        FieldPanel("intro")
+    ]
 
-        # Implemented infinite scrolling with htmx
-        def get_template(self, request, *args, **kwargs):
-            if request.htmx:
-                return "blog/components/blog_post_items.html"
-            return "blog/blog_index_page.html"
+    # Implemented infinite scrolling with htmx
+    def get_template(self, request, *args, **kwargs):
+        if request.htmx:
+            return "blog/components/blog_post_items.html"
+        return "blog/blog_index_page.html"
 
 
-        def get_context(self, request):
-            # Update context to include only published posts, ordered by reverse-chron
-            context = super().get_context(request)
-            # blog_posts = self.get_children().live().filter(alias_of_id__isnull=True).order_by('-first_published_at')
-            blog_posts = PostPage.objects.descendant_of(self).filter(alias_of_id__isnull=True).live().public().order_by('-first_published_at')
-            if request.GET.get('tag', None):
-                tags = request.GET.get('tag')
-                blog_posts = blog_posts.filter(tags__slug__in=[tags])
-            paginator = Paginator(blog_posts, 3) #@todo: update paginator
-            page = request.GET.get("page")
-            try:
-                 blog_posts = paginator.page(page)
+    def get_context(self, request):
+        # Update context to include only published posts, ordered by reverse-chron
+        context = super().get_context(request)
+        # blog_posts = self.get_children().live().filter(alias_of_id__isnull=True).order_by('-first_published_at')
+        blog_posts = PostPage.objects.descendant_of(self).filter(alias_of_id__isnull=True).live().public().order_by('-first_published_at')
+        if request.GET.get('tag', None):
+            tags = request.GET.get('tag')
+            blog_posts = blog_posts.filter(tags__slug__in=[tags])
+        paginator = Paginator(blog_posts, 3) #@todo: update paginator
+        page = request.GET.get("page")
+        try:
+                blog_posts = paginator.page(page)
 
-            except PageNotAnInteger:
-                 blog_posts = paginator.page(1)
+        except PageNotAnInteger:
+                blog_posts = paginator.page(1)
 
-            except EmptyPage:
-                 print("No results for page:", page)
-                 blog_posts = paginator.page(paginator.num_pages)
-                 
-            context['blog_posts'] = blog_posts
+        except EmptyPage:
+                print("No results for page:", page)
+                blog_posts = paginator.page(paginator.num_pages)
+                
+        context['blog_posts'] = blog_posts
 
-            return context
+        return context
 
 
 class PostPageTag(TaggedItemBase):

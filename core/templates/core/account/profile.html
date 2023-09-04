@@ -1,5 +1,7 @@
 {% extends "account/base.html" %}
-{% load static i18n widget_tweaks wagtailcore_tags wagtailimages_tags %}
+{% load static i18n custom_tags %}
+{% load widget_tweaks wagtailcore_tags wagtailimages_tags %}
+
 
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
@@ -129,7 +131,7 @@
             <label class="col-md-4 col-form-label">Collaborator status:</label>
             <div class="col-md-8 d-flex align-items-center">
               <ul class="list-group w-100">
-                {% if is_collaborator %}
+                {% if user|is_collaborator %}
                   <li class="list-group-item">
                     You are a collaborator
                   </li>
@@ -142,9 +144,11 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3 d-flex align-items-center justify-content-center">
-          <a href="{% slugurl 'collaborator-request' %}" class="btn btn-outline-secondary">Request</a>
-        </div>
+        {% if not user|is_collaborator %}
+          <div class="col-md-3 d-flex align-items-center justify-content-center">
+            <a href="{% slugurl 'collaborator-request' %}" class="btn btn-outline-secondary">Request</a>
+          </div>
+        {% endif %}
       </div>
     </div>
 
