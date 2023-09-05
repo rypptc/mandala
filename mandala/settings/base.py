@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "wagtailcaptcha",
     "languages_plus",
     "countries_plus",
+    "dbbackup",
 
     # django-allauth apps
     "allauth",
@@ -337,3 +338,8 @@ WAGTAILLOCALIZE_MACHINE_TRANSLATOR = {
         "PROJECT_ID": "loyal-surfer-396322",
     },
 }
+
+# django-dbbackup
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': config('DBBACKUP_STORAGE_LOCATION')}
+
