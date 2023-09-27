@@ -2,12 +2,30 @@
 
     <nav class="navbar navbar-expand-md bg-body shadow-sm fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand ms-4" href="#">Rodrigo Yáñez Pilgrim</a>
             <div class="collapse navbar-collapse" id="navcol-4">
                 <ul class="navbar-nav ms-auto me-4">
                     <li class="nav-item"><a class="nav-link active" href="{% slugurl 'portfolio' %}">Projects</a></li>
                 </ul>
             </div>
+      <!-- Language selector -->
+      {% if page and page.get_translations.live.count > 0 %}
+      <div class="btn-group mt-2 mt-lg-0">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-globe"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-lg-end">
+              {% for translation in page.get_translations.live %}
+                  <a class="dropdown-item" 
+                      href="{% pageurl translation %}" 
+                      rel="alternate" 
+                      hreflang="{{ translation.locale.language_code }}">
+                      {{ translation.locale.language_name_local|title }}
+                  </a>
+              {% endfor %}
+            {% else %}
+        </ul>
+      </div>
+      {% endif %}
             <button data-bs-target="#navcol-4" data-bs-toggle="collapse" class="navbar-toggler">
                 <span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span>
             </button>
