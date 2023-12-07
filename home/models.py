@@ -21,7 +21,6 @@ class HomePage(Page):
     ]
     subpage_types = [
         'blog.BlogIndexPage',
-        'portfolio.PortfolioIndexPage',
         'roles.CollaboratorRequestPage',
     ]
     first_section_image = models.ForeignKey(
